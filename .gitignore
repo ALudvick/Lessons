@@ -5,3 +5,5 @@
 /Java/EducationProject/src/test
 /Python/App/.idea
 /Python/App/venv
+Python/App/weather/simple/config.py
+Python/App/weather/methods/weather_method.py
