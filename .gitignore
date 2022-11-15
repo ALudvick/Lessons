@@ -1,3 +1,4 @@
 */.gitignore
 */
 !*/Java/EducationProject/src/main/java/app/App.java
+!*/Java/EducationProject/src/main/resources
