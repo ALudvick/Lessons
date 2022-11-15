@@ -1,2 +1,3 @@
 */.gitignore
-test.txt
+*/
+!*/Java/EducationProject/src/main/java/app/App.java
