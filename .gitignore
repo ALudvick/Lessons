@@ -1,0 +1,7 @@
+
+*.class
+/Java/EducationProject/.idea
+/Java/EducationProject/target
+/Java/EducationProject/src/test
+/Python/App/.idea
+/Python/App/venv
