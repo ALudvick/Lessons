@@ -6,8 +6,8 @@ import java.io.InputStreamReader;
 
 public class Duck {
     // private variables
-    private String nickname;
-    private int age;
+    private final String nickname;
+    private final int age;
     private boolean position;
     private int score;
 
@@ -38,6 +38,16 @@ public class Duck {
     // getter for nickname
     public String getNickname() {
         return nickname;
+    }
+
+    // getter for position
+    public boolean isPosition() {
+        return position;
+    }
+
+    // setter for position (if we would like to change position in future)
+    public void setPosition(boolean position) {
+        this.position = position;
     }
 
     //override toString() method
