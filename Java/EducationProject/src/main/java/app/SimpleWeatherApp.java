@@ -10,12 +10,10 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class App {
+public class SimpleWeatherApp {
     public static void main(String[] args) throws IOException {
-        App app = new App();
+        SimpleWeatherApp app = new SimpleWeatherApp();
         app.weatherSimpleRequest();
     }
 
