@@ -28,12 +28,21 @@ public class WeatherApp {
     }
 
     public static void main(String[] args) throws IOException {
-        System.out.print("Enter city name: ");
-        String cityName = reader.readLine();
-        JsonObject object = getJsonByCityName(cityName);
+        JsonObject object = startWeatherApp();
         String lat = object.get("lat").toString();
         String lon = object.get("lon").toString();
         getWeatherByCoordinates(lat, lon);
+    }
+
+    private static JsonObject startWeatherApp() {
+        try {
+            System.out.print("Enter city name: ");
+            String cityName = reader.readLine();
+            return getJsonByCityName(cityName);
+        } catch (IOException | IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return startWeatherApp();
+        }
     }
 
     private static void getWeatherByCoordinates(String lat, String lon) throws IOException {
@@ -45,6 +54,7 @@ public class WeatherApp {
                         "&appid=" + properties.getProperty("token") +
                         "&units=metric"))
                 .build();
+
 
         Response response = client.newCall(request).execute();
         String result = response.body().string();
@@ -71,32 +81,43 @@ public class WeatherApp {
         Gson gson = new Gson();
         JsonArray mainJson = gson.fromJson(result, JsonArray.class);
 
-        System.out.println("Пожалуйста, конкретизируйте ваш выбор: ");
+        if (mainJson.size() != 0) {
+            System.out.println("Пожалуйста, конкретизируйте ваш выбор: ");
 
-        int elementNumber = 1;
-        for (JsonElement element : mainJson) {
-            System.out.printf("%d: %s - %s - %s (%s : %s)\n",
-                    elementNumber,
-                    element.getAsJsonObject().get("name").getAsString(),
-                    element.getAsJsonObject().get("country").getAsString(),
-                    element.getAsJsonObject().get("state").getAsString(),
-                    element.getAsJsonObject().get("lat").getAsString(),
-                    element.getAsJsonObject().get("lon").getAsString()
-            );
-            elementNumber++;
+            int elementNumber = 1;
+            for (JsonElement element : mainJson) {
+                System.out.printf("%d: %s - %s - %s (%s : %s)\n",
+                        elementNumber,
+                        element.getAsJsonObject().get("name").getAsString(),
+                        element.getAsJsonObject().get("country").getAsString(),
+                        element.getAsJsonObject().get("state").getAsString(),
+                        element.getAsJsonObject().get("lat").getAsString(),
+                        element.getAsJsonObject().get("lon").getAsString()
+                );
+                elementNumber++;
+            }
+
+            int userChoice = getUserChoice(mainJson.size()) - 1;
+            return mainJson.getAsJsonArray().get(userChoice).getAsJsonObject();
+        } else {
+            throw new IllegalArgumentException("Неизвестный город");
         }
-
-        int userChoice = getUserChoice(mainJson.size()) - 1;
-        return mainJson.getAsJsonArray().get(userChoice).getAsJsonObject();
     }
 
-    private static int getUserChoice(int arraySize) throws IOException {
-        System.out.print("\nВыбор: ");
-        int userChoice = Integer.parseInt(reader.readLine());
+    private static int getUserChoice(int arraySize) {
+        try {
+            System.out.print("\nВыбор: ");
+            int userChoice = Integer.parseInt(reader.readLine());
 
-        if (userChoice > 0 && userChoice <= arraySize) {
-            return userChoice;
-        } else {
+            if (userChoice > 0 && userChoice <= arraySize) {
+                return userChoice;
+            } else {
+                System.out.print("К сожалению, я не понял ваш выбор или была допущена ошибка. Пожалуйста, повторите снова");
+                getUserChoice(arraySize);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NumberFormatException e) {
             System.out.print("К сожалению, я не понял ваш выбор или была допущена ошибка. Пожалуйста, повторите снова");
             getUserChoice(arraySize);
         }

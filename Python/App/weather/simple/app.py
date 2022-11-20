@@ -1,22 +1,17 @@
-import http.client as hc
+def div(a, b):
+    raise ZeroDivisionError('Попытка поделить на ноль...')
+    return a / b
 
-import requests
-import requests as rr
 
-# standard
-url = 'www.google.com'
+if __name__ == '__main__':
+    try:
+        user_input_a = int(input('Введите число A: '))
+        user_input_b = int(input('Введите число B: '))
 
-connection = hc.HTTPConnection(url)
-connection.request('GET', '/')
-response = connection.getresponse()
+        result = div(user_input_a, user_input_b)
+        print('RESULT: ' + str(result))
+    except ValueError as ve:
+        print('Короче, ошибка тут...')
+    except ZeroDivisionError as ze:
+        print()
 
-print(response.read())
-print(f'\n######################################################\n')
-
-# requests
-req = rr.request('GET', 'https://www.google.com').text
-print(req)
-
-# one line code
-print(f'\n######################################################\n')
-print(requests.request('GET', 'https://google.com').text)
