@@ -9,4 +9,10 @@ Python/App/weather/simple/config.py
 Python/App/weather/methods/weather_method.py
 Java/EducationProject/src/main/resources/weather.properties
 Python/App/weather/methods/config.py
-Python/App/weather/methods/__pycache__/
+Python/App/weather/methods/__pycache__
+Python/App/weather/classes/__pycache__
+Python/App/weather/weather/main.app/__pycache__
+Python/App/weather/weather/__pycache__
+Python/App/weather/main.app/__pycache__
+Python/App/weather/simple/__pycache__
+Java/EducationProject/src/main/resources
