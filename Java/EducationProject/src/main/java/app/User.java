@@ -3,35 +3,36 @@ package app;
 import java.util.Objects;
 
 public class User {
-    private int id;
-    private String name;
-    private String role;
-    private String message;
-    private String queryId;
+    private final long id;
+    private final String name;
+    private final String role;
+    private String messageText;
+    private String messageId;
 
-    public User(int id, String name, String role) {
+
+    public User(long id, String name, String role) {
         this.id = id;
         this.name = name;
         this.role = role;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMessageText() {
+        return messageText;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMessageText(String messageText) {
+        this.messageText = messageText;
     }
 
-    public String getQueryId() {
-        return queryId;
+    public String getMessageId() {
+        return messageId;
     }
 
-    public void setQueryId(String queryId) {
-        this.queryId = queryId;
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -48,12 +49,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && name.equals(user.name) && Objects.equals(role, user.role) && message.equals(user.message);
+        return id == user.id && name.equals(user.name) && Objects.equals(role, user.role) && messageText.equals(user.messageText);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, role, message);
+        return Objects.hash(id, name, role, messageText);
     }
 
     @Override
@@ -62,7 +63,7 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", role='" + role + '\'' +
-                ", message='" + message + '\'' +
+                ", message='" + messageText + '\'' +
                 '}';
     }
 }

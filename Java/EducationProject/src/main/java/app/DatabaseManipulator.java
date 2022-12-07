@@ -16,15 +16,13 @@ public class DatabaseManipulator {
     public DatabaseManipulator(String host, int port) {
         this.host = host;
         this.port = port;
-        connectToSQLiteDatabase();
     }
 
     public DatabaseManipulator(String host) {
         this.host = host;
-        connectToSQLiteDatabase();
     }
 
-    private void connectToSQLiteDatabase() {
+    public void connectToSQLiteDatabase() {
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:" + host);
@@ -113,10 +111,10 @@ public class DatabaseManipulator {
         }
     }
 
-    public void addUser(String registerDate, int userId, String userName, String userRole) {
+    public void addUser(String registerDate, long userId, String userName, String userRole) {
         try {
             userPreparedStatement.setString(1, registerDate);
-            userPreparedStatement.setInt(2, userId);
+            userPreparedStatement.setLong(2, userId);
             userPreparedStatement.setString(3, userName);
             userPreparedStatement.setString(4, userRole);
             userPreparedStatement.execute();
@@ -126,13 +124,13 @@ public class DatabaseManipulator {
         }
     }
 
-    public void addQuery(String queryId, String queryDate, long answerTime, long cityId, int userId, String userQuery, String response, int resultCode) {
+    public void addQuery(String queryId, String queryDate, long answerTime, long cityId, long userId, String userQuery, String response, int resultCode) {
         try {
             queryPreparedStatement.setString(1, queryId);
             queryPreparedStatement.setString(2, queryDate);
             queryPreparedStatement.setLong(3, answerTime);
             queryPreparedStatement.setLong(4, cityId);
-            queryPreparedStatement.setInt(5, userId);
+            queryPreparedStatement.setLong(5, userId);
             queryPreparedStatement.setString(6, userQuery);
             queryPreparedStatement.setString(7, response);
             queryPreparedStatement.setInt(8, resultCode);
